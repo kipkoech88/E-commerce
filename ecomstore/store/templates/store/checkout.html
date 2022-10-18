@@ -1,0 +1,63 @@
+{% extends 'store/main.html' %} 
+{% load static %} 
+{% block content %}
+<div class="row">
+    <div class="col-lg-6">
+        <div class="box-element form-wrapper"> 
+            <form id="form">
+                <div id="user-info">
+                    <div id="form-field"> 
+                        <input required type="text" placeholder="name" name="name" class="form-control"> 
+                    </div> 
+                    <div id="form-field"> 
+                        <input required type="email" name="email" placeholder="Email address" class="form-control">
+                    </div>
+                </div> 
+                <div id="shipping-info">
+                    <hr> 
+                    <p>Shipping information</p> 
+                    <hr>
+                    <div class="form-field"> 
+                        <input type="text" placeholder="address" name="address" required class="form-control">
+                    </div> 
+                    <div class="form-field">
+                        <input type="text" class="form-control" required name="city" placeholder="City">
+                    </div> 
+                    <div class="form-field">
+                        <input type="text" name="zipcode" placeholder="Zip Code" class="form-control">
+                    </div> 
+
+                </div>
+                <hr>
+                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+            </form>
+
+        </div> 
+        <br>
+
+        <div class="box-element hidden" id="payment-info">
+            <small>Paypal Options</small>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="box-element">
+            <a class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to cart</a> 
+            <hr> 
+            <h3>Order Summary</h3>
+            <hr> 
+            <div class="cart-row"> 
+                {% for item in items%}
+                <div style="flex: 2;"><img class="row-image" src="{{item.product.imageURL}}"> </div> 
+                <div style="flex: 2;"><p>{{item.product.name}} </p></div> 
+                <div style="flex: 1;"> <p>$ {{item.product.price|floatformat:2}}</p> </div> 
+                <div style="flex: 1;"><p>x {{item.quantity}}</p> </div> 
+                {% endfor %}
+            </div> 
+            <div>
+                <h5>Items:  {{order.get_cart_items}}</h5> 
+                <h5>Total:  $ {{order.get_cart_total|floatformat:2}}</h5>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock content %}
